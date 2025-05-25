@@ -1,3 +1,4 @@
+import allure
 from faker import Faker
 from pages.base_page import BasePage
 
@@ -25,46 +26,71 @@ class RegistrationPage(BasePage):
         self.email = self.faker.email()
 
     def fill_first_name(self):
-        self.fill_input(self._FIRST_NAME_INPUT, self.faker.first_name())
+        first_name = self.faker.first_name()
+        with allure.step(f"Fill First name: {first_name}"):
+            self.fill_input(self._FIRST_NAME_INPUT, first_name)
 
     def fill_last_name(self):
-        self.fill_input(self._LAST_NAME_INPUT, self.faker.last_name())
+        last_name = self.faker.last_name()
+        with allure.step(f"Fill Last name: {last_name}"):
+            self.fill_input(self._LAST_NAME_INPUT, last_name)
 
     def fill_email(self):
-        self.fill_input(self._EMAIL_INPUT, self.email)
+        with allure.step(f"Fill email: {self.email}"):
+            self.fill_input(self._EMAIL_INPUT, self.email)
 
     def fill_re_email(self):
-        self.fill_input(self._RE_EMAIL_INPUT, self.email)
+        with allure.step(f"Fill re-email: {self.email}"):
+            self.fill_input(self._RE_EMAIL_INPUT, self.email)
 
     def fill_username(self):
         username = self.faker.user_name()
-        self.fill_input(self._USERNAME_INPUT, username)
-        return username
+        with allure.step(f"Fill username: {username}"):
+            self.fill_input(self._USERNAME_INPUT, username)
 
     def fill_password(self):
         password = self.faker.password()
-        self.fill_input(self._PASSWORD_INPUT, password)
-        return password
+        with allure.step(f"Fill password: {password}"):
+            self.fill_input(self._PASSWORD_INPUT, password)
 
     def fill_birthday(self):
-        self.click(self._BIRTHDAY_INPUT)
-        birthdate = self.faker.date_of_birth(minimum_age=18, maximum_age=90)
-        month = self.find(self._MONTH_PICKER)
-        month.select_option(str(birthdate.month - 1))
-        year = self.find(self._YEAR_PICKER)
-        year.select_option(str(birthdate.year))
-        day_xpath = f'//a[@data-date="{birthdate.day}"]'
-        self.click(day_xpath)
-        self.page.keyboard.type('Enter')
+        with allure.step("Fill birthdate"):
+            self.click(self._BIRTHDAY_INPUT)
+            birthdate = self.faker.date_of_birth(minimum_age=18, maximum_age=90)
+            with allure.step(f"Select birthdate: {birthdate.day}/{birthdate.month}/{birthdate.year}"):
+                month = self.find(self._MONTH_PICKER)
+                month.select_option(str(birthdate.month - 1))
+                year = self.find(self._YEAR_PICKER)
+                year.select_option(str(birthdate.year))
+                day_xpath = f'//a[@data-date="{birthdate.day}"]'
+                self.click(day_xpath)
+                self.page.keyboard.type('Enter')
 
     def click_to_male_radiobutton(self):
-        self.click(self._MALE_RADIO_BTN)
+        with allure.step("Click to male radiobutton"):
+            self.click(self._MALE_RADIO_BTN)
 
     def click_to_privacy_policy_checkbox(self):
-        self.click(self._PRIVACY_POLICY_CHECKBOX)
+        with allure.step("Click to privacy policy checkbox"):
+            self.click(self._PRIVACY_POLICY_CHECKBOX)
 
     def click_create_account_button(self):
-        self.click(self._CREATE_ACC_BTN)
+        with allure.step("Click to create account button"):
+            self.click(self._CREATE_ACC_BTN)
 
-    def check_success_text_after_registration(self):
-        self.is_element_visible(self._SUCCESS_PARAGRAPH_TEXT)
+    def is_account_created(self):
+        with allure.step("Check success text after registration"):
+            self.is_element_visible(self._SUCCESS_PARAGRAPH_TEXT)
+
+    def create_account(self):
+        with allure.step("Create account"):
+            self.fill_first_name()
+            self.fill_last_name()
+            self.fill_email()
+            self.fill_re_email()
+            self.fill_username()
+            self.fill_password()
+            self.fill_birthday()
+            self.click_to_male_radiobutton()
+            self.click_to_privacy_policy_checkbox()
+            self.click_create_account_button()

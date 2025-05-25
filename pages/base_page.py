@@ -1,3 +1,4 @@
+import allure
 from faker import Faker
 from playwright.sync_api import Page, expect
 
@@ -9,10 +10,12 @@ class BasePage:
         self.fake = Faker()
 
     def open(self):
-        self.page.goto(self._PAGE_URL)
+        with allure.step(f"Open page {self._PAGE_URL}"):
+            self.page.goto(self._PAGE_URL)
 
     def is_open(self, path_of_url):
-        assert path_of_url in self.page.url, f"URL does not contain '{path_of_url}', the page did not open."
+        with allure.step(f"Check is page {self._PAGE_URL} open"):
+            assert path_of_url in self.page.url, f"URL does not contain '{path_of_url}', the page did not open."
         return True
 
     def find(self, locator):
