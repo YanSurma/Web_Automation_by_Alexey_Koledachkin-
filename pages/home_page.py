@@ -1,5 +1,4 @@
 import allure
-from playwright.async_api import Page
 
 from pages.base_page import BasePage
 
@@ -20,4 +19,3 @@ class HomePage(BasePage):
     def is_post_created(self):
         with allure.step("Check that post is published"):
             self.find(f"p:text('{self.post_text}')").wait_for()
-
