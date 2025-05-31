@@ -1,10 +1,12 @@
 import allure
 from faker import Faker
+
+from data.links import Links
 from pages.base_page import BasePage
 
 
 class RegistrationPage(BasePage):
-    _PAGE_URL = 'https://demo.opensource-socialnetwork.org/'
+    _PAGE_URL = Links.REGISTRATION_PAGE
     _FIRST_NAME_INPUT = '//input[@name="firstname"]'
     _LAST_NAME_INPUT = '//input[@name="lastname"]'
     _EMAIL_INPUT = '//input[@name="email"]'

@@ -1,10 +1,11 @@
 import allure
 
+from data.links import Links
 from pages.base_page import BasePage
 
 
 class LoginPage(BasePage):
-    _PAGE_URL = 'https://demo.opensource-socialnetwork.org/login'
+    _PAGE_URL = Links.LOGIN_PAGE
     _USERNAME_INPUT = '//input[@name="username"]'
     _PASSWORD_INPUT = '//input[@name="password"]'
     _LOGIN_BTN = '//input[@value="Login"]'
@@ -28,3 +29,4 @@ class LoginPage(BasePage):
             self.fill_username_input(username)
             self.fill_password_input(password)
             self.click_login_button()
+

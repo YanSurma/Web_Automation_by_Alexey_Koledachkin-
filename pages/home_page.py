@@ -1,10 +1,11 @@
 import allure
 
+from data.links import Links
 from pages.base_page import BasePage
 
 
 class HomePage(BasePage):
-    _PAGE_URL = 'https://demo.opensource-socialnetwork.org/home'
+    _PAGE_URL = Links.HOME_PAGE
     _CREATE_POST_INPUT = '//textarea[@name="post"]'
     _CREATE_POST_BUTTON = '//input[@value="Post"]'
     _FIRST_POST_TEXT_CONTENT = '(//div[@class="post-contents"]/p)[1]'
