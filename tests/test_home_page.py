@@ -14,8 +14,8 @@ class TestHomePage(BaseTest):
         self.login_page.open()
         self.login_page.login_as(Credentials.USERNAME, Credentials.PASSWORD)
         self.home_page.open()
-        self.home_page.create_post()
-        self.home_page.is_post_created()
+        self.home_page.post_block.create_post()
+        self.home_page.post_block.is_post_created()
 
     @allure.title("Login with declarative method")
     def test_successful_login_declarative(self):

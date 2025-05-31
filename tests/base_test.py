@@ -1,7 +1,7 @@
 import pytest
 
 from data.credentials import Credentials
-from pages.home_page import HomePage
+from pages.home_page.home_page import HomePage
 from pages.login_page import LoginPage
 from pages.registration_page import RegistrationPage
 
